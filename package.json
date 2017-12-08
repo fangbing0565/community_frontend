@@ -32,5 +32,5 @@
     "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
     "start-js": "react-scripts-ts start"
   },
-  "proxy": "http://54.223.181.183:3000"
+  "proxy": "http://54.223.181.183:8080"
 }
