@@ -1,0 +1,64 @@
+.editorName{
+  font-size: 24px;
+  text-align: center;
+}
+.editorTools {
+  display: flex;
+  justify-content: flex-start;
+  height: auto;
+  padding: 6px 12px;
+  border-top: 1px solid #e7eaf1;
+  border-bottom: 1px solid #e7eaf1;
+  background: #fff;
+  margin: 10px 0;
+  .editorTools-item {
+    width: 20px;
+    height: 20px;
+    padding: 5px 8px;
+    .item-icon {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      cursor: pointer;
+    }
+  }
+}
+
+.content-box {
+  max-width: 100%;
+
+  .content-title{
+    font-size: 20px;
+    text-align: left;
+  }
+  ul{
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    li{
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      span{
+        padding-right: 12px;
+
+      }
+    }
+  }
+}
+@media screen and (min-width: 1200px){
+  .content-box{
+    max-width: 15%;
+    position: absolute;
+    left: 0;
+    top: 150px;
+    .content-title {
+      text-align: center;
+    }
+    li{
+      padding: 10px 0;
+
+    }
+    }
+}
