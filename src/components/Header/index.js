@@ -34,7 +34,8 @@ class Header extends React.Component {
 
     render() {
         const hasToken = this.props.token ? true : false
-        const email = this.props.user.entities.email
+        // const email = this.props.user.entities
+        const email = 'fang'
         const focusMask = this.state.focusMask
         return (
             <div className="header">

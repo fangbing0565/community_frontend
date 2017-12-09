@@ -6,15 +6,21 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 import Home from '../page/App'
+import Login from '../page/Auth/Login'
+import Register from '../page/Auth/Register'
 
 class MainLayout extends React.Component {
     render() {
         return (
             <div className="app">
                 <Header />
-                <Switch>
-                    <Route exact={true} path="/" component={Home} />
-                </Switch>
+                <div className="app-content">
+                    <Switch>
+                        <Route exact={true} path="/" component={Home} />
+                        <Route exact={true} path="/login" component={Login} />
+                        <Route exact={true} path="/register" component={Register} />
+                    </Switch>
+                </div>
                 <Footer />
             </div>
         )

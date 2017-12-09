@@ -1,17 +1,16 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import '../Auth.css'
+import '../auth.css'
 import { Link } from 'react-router-dom'
 import { register, registerError } from './actions'
 import { checkRegex } from '../../../util'
 import { EMAIL_REGEX } from '../../../config'
-
+let email
+let password1
+let password2
 class Register extends React.Component {
 
-    private email
-    private password1
-    private password2
     constructor(props) {
         super(props)
 
@@ -92,9 +91,9 @@ class Register extends React.Component {
                                 <div className="title">
                                     <p>注册</p>
                                 </div>
-                                <div className="errors">
-                                    <p>{this.props.registerInfo.error}</p>
-                                </div>
+                                {/*<div className="errors">*/}
+                                    {/*<p>{this.props.registerInfo.error}</p>*/}
+                                {/*</div>*/}
                                 <div className="form-item">
                                     <input 
                                         className="input"

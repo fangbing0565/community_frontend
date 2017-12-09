@@ -2,16 +2,14 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router-dom'
-import '../Auth.css'
+import '../auth.css'
 import { login, loginError } from './actions'
 import { checkRegex } from '../../../util'
 import { EMAIL_REGEX } from '../../../config'
 import './index.css'
-
+let email
+let password
 class Login extends React.Component {
-
-    private email
-    private password
     constructor(props) {
         super(props)
 
@@ -79,9 +77,9 @@ class Login extends React.Component {
     }
 
     render () {
-        if (this.props.QRCode.entities.url) {
-            window.open(this.props.QRCode.entities.url)
-        }
+        // if (this.props.QRCode.entities.url) {
+        //     window.open(this.props.QRCode.entities.url)
+        // }
         return (
             <div className="login-and-register grow">
                 <Helmet title="登录 - 投研通" />
@@ -91,9 +89,9 @@ class Login extends React.Component {
                             <div className="title">
                                 <p>登录</p>
                             </div>
-                            <div className="errors">
-                                <p>{this.props.loginInfo.error}</p>
-                            </div>
+                            {/*<div className="errors">*/}
+                                {/*<p>{this.props.loginInfo.error}</p>*/}
+                            {/*</div>*/}
                             <div className="form-item">
                                 <input
                                     className="input"

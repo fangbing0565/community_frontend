@@ -5,11 +5,10 @@ import { Router, Switch, Route } from 'react-router-dom'
 import { Provider, connect } from 'react-redux'
 import history from './history'
 import Helmet from 'react-helmet'
-import './index.css';
+import './style/index.css';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store'
 import MainLayout from './routes/MainLayout'
-
 const store = configureStore({})
 
 

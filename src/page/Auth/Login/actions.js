@@ -8,9 +8,9 @@ function afterLogin(res) {
     const backUrl = localStorage.getItem('backUrl') || ''
 
     if (backUrl) {
-        location.href = backUrl
+        window.location.href = backUrl
     } else {
-        location.href = '/'
+        window.location.href = '/'
     }
 }
 

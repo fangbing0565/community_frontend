@@ -304,8 +304,6 @@ export {
     UA,
     isWechat,
     cutString,
-    ajax,
-    ajaxJson,
     toInt,
     getCookies,
     createCookie,
