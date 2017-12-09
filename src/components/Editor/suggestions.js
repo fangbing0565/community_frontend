@@ -1,9 +1,19 @@
-import styles from '../styles/styles'
 import React from 'react';
-import {normalizeIndex} from '../util/utils';
+import {normalizeIndex} from '../../util/utils';
+import './App.css'
 class SuggestionList extends React.Component {
 
   render() {
+    const styles ={
+      suggestions:{
+          borderRadius: 3,
+          margin: 0,
+          padding: 0,
+          background: 'white',
+          boxShadow: '0 0 0 1px rgba(0, 0, 0, .1), 0 1px 10px rgba(0, 0, 0, .35)',
+          listStyleType: 'none'
+      }
+    }
     const {
       suggestionsState
     } = this.props;
@@ -30,15 +40,10 @@ class SuggestionList extends React.Component {
         const {
           suggestionsState
         } = this.props;
-        const style =
-          index === normalizedIndex ?
-          styles.selectedPerson : styles.person;
         return ( < li key = {
             person
-          }
-          style = {
-            style
-          } > {
+          } className={ index === normalizedIndex ?
+                'selectedPerson' : 'person'}> {
             person
           } </li>
         );

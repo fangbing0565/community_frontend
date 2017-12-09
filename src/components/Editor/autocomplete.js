@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Draft from 'draft-js';
-import styles from '../styles/styles';
-import * as triggers from '../util/triggers';
+import * as triggers from '../../util/triggers';
+import './App.css'
 const {Editor, EditorState, RichUtils} = Draft;
 export class AutocompleteEditor extends Editor {
     constructor(props) {
@@ -264,7 +264,7 @@ export class AutocompleteEditor extends Editor {
         } = this.props;
 
         return (
-            < Editor customStyleMap={styles} keyBindingFn={this.myKeyBindingFn}
+            < Editor keyBindingFn={this.myKeyBindingFn}
                      editorState={editorState}
                      handleReturn={this.handleReturn}
                      onChange={this.onChange}

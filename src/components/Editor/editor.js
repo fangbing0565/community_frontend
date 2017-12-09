@@ -1,16 +1,15 @@
 import React from 'react';
 import * as Draft from 'draft-js';
-import {AutocompleteEditor} from '../components/autocomplete';
-import SuggestionList from '../components/suggestions';
-import styles from '../styles/styles'
-import {normalizeIndex, filterArray} from '../util/utils';
-import {filterPromptData} from '../util';
+import {AutocompleteEditor} from './autocomplete';
+import SuggestionList from './suggestions';
+import {normalizeIndex, filterArray} from '../../util/utils';
+import {filterPromptData} from '../../util/index';
 import { connect } from 'react-redux'
-import * as triggers from '../util/triggers';
-import * as data from '../data/data';
+import * as triggers from '../../util/triggers';
+import * as data from '../../data/data';
 // import addSuggestion from '../components/addsuggestion';
 import 'whatwg-fetch'
-import { getPrompt, getPromptSuccess } from '../actions/index'
+import { getPrompt, getPromptSuccess } from '../../actions/index'
 import './App.css'
 let filteredArrayTemp;
 const {Entity, Modifier, Editor, EditorState, convertToRaw, RichUtils, CodeUtils} = Draft;
@@ -258,9 +257,7 @@ class AutocompleteInput extends React.Component {
     }
 
     render() {
-        return ( < div style={
-                styles.root
-            }>
+        return ( < div className="root">
                 <div className="editorName">EditorAI智能编辑器</div>
                 <div className="content-box">
                     <div className="content-title">
@@ -312,7 +309,7 @@ class AutocompleteInput extends React.Component {
                         )
                     }
                 </div>
-                < div style={styles.editor}>
+                < div className="editor">
                     < AutocompleteEditor editorState={
                         this.state.editorState
                     }
