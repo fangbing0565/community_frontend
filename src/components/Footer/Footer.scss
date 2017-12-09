@@ -1,0 +1,21 @@
+@import './src/style/_variable.scss';
+.footer {
+    box-sizing: border-box;
+    border-top: 1px solid $line;
+    height: $header-height;
+    display: flex;
+    align-items: center;
+    .footer-container{
+        width: 100%;
+        color: $medium;
+        font-size: $font-normal;
+        text-align: center;
+        @media only screen and (min-width: $big-screen-min) {
+            width: $content-width;
+            max-width: $default-width;
+            margin: 0 auto;
+        }
+        @media only screen and (max-width: $small-screen-max) {
+        }
+    }
+}

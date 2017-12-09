@@ -1,0 +1,16 @@
+@import './src/style/_variable.scss';
+
+.other-login-way{
+  display: flex;
+  padding: 10px 0;
+  align-items: center;
+  .way-title{
+    text-align: left;
+  }
+  .wx-icon{
+    background-size: cover;
+    width:30px;
+    height:30px;
+    background-image: url("./img/wechat.svg");
+  }
+}

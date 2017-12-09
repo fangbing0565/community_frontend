@@ -1,3 +1,6 @@
+import history from '../history'
+const UA = window.navigator.userAgent
+
 function json2Form(json) {
     if (!json) {
         return ''
@@ -18,7 +21,7 @@ async function ajax(url, payload, method) {
     }
 
     let init = {}
-    // const auth = localStorage.getItem('token') ? ('JWT ' + localStorage.getItem('token')) : ''
+    // const Auth = localStorage.getItem('token') ? ('JWT ' + localStorage.getItem('token')) : ''
 
     if (method === 'GET' || method === 'get') {
         url = url + json2Form(payload)
@@ -72,7 +75,7 @@ async function ajaxJson(url, payload, method) {
     }
 
     let init = {}
-    // const auth = localStorage.getItem('token') ? ('JWT ' + localStorage.getItem('token')) : ''
+    // const Auth = localStorage.getItem('token') ? ('JWT ' + localStorage.getItem('token')) : ''
 
     if (method === 'GET' || method === 'get') {
         url = url + json2Form(payload)
@@ -81,7 +84,7 @@ async function ajaxJson(url, payload, method) {
             method: 'GET',
             credentials: 'include',
             headers: {
-                // 'Authorization': auth
+                // 'Authorization': Auth
             },
         }
     } else if (method === 'POST' || method === 'post') {
@@ -90,7 +93,7 @@ async function ajaxJson(url, payload, method) {
             credentials: 'include',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
-                // 'Authorization': auth
+                // 'Authorization': Auth
             },
             body: JSON.stringify(payload)
         }
@@ -154,8 +157,165 @@ function filterPromptData  (data, filterType){
     return str
 }
 
+
+/* detecting wechat */
+function isWechat() {
+    if (UA.includes('micromessenger')) {
+        return true
+    }
+    return false
+}
+
+function cutString(s, n) {
+    if (s.length > n) {
+        return s.substring(0, n) + '...'
+    } else {
+        return s
+    }
+}
+
+
+function toInt(num) {
+    if (typeof num === 'number') {
+        num = num.toString()
+    }
+
+    if (num) {
+        return parseInt(num, 10)
+    }
+
+    return 0
+}
+
+function getCookies() {
+    let cookies = {
+        token: ''
+    }
+    for (let cookie of document.cookie.split('; ')) {
+        let [name, value] = cookie.split('=')
+        cookies[name] = decodeURIComponent(value)
+    }
+    return cookies
+}
+
+function createCookie(name, value, days) {
+    let expires
+    if (days) {
+        let date = new Date()
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000))
+        expires = '; expires=' + date.toUTCString()
+    } else {
+        expires = ''
+    }
+    document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/'
+}
+
+function clearCookieByName(name) {
+    createCookie(name, '', -1)
+}
+
+function checkRegex(regex, s) {
+    const re = new RegExp(regex)
+    return re.test(s)
+}
+
+function toLogin(backUrl) {
+    if (!backUrl) {
+        backUrl = window.location.href
+    }
+
+    localStorage.setItem('BackUrl', backUrl)
+
+    history.push('/login')
+}
+
+function isEmpty(obj) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object
+}
+
+function dateFormat(date) {
+    let temp = date.replace(/-/g, '/')
+    return new Date(temp)
+}
+
+function compare(property) {
+    let value1, value2
+    return function (obj1, obj2) {
+        if (property === 'created_at') {
+            const temp = '_source'
+            value1 = Date.parse(obj1[temp][property]);
+            value2 = Date.parse(obj2[temp][property]);
+        } else {
+            value1 = obj1[property];
+            value2 = obj2[property];
+        }
+        return value1 - value2;     // 升序 、2 - 1 降序
+    }
+}
+
+function sortReports(index, data) {
+    switch (index) {
+        case '_score':
+            return data.sort(compare('_score'));
+        case 'created_at':
+            return data.sort(compare('created_at'));
+        default:
+            break
+    }
+}
+
+function GetQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return (r[2])
+    }
+    return null;
+}
+
+function objToArray(obj) {
+    let arr = []
+    for (let i in obj) {
+        if (i) {
+            arr.push(obj[i])
+        }
+    }
+    // console.log(arr)
+    return arr
+}
+
+function getRandom(n) {
+    let chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    let res = '';
+    for (let i = 0; i < n; i++) {
+        let id = Math.ceil(Math.random() * 35);
+        res += chars[id];
+    }
+    return res;
+}
+
+
+
+
 export {
     ajax,
     ajaxJson,
-    filterPromptData
+    filterPromptData,
+    UA,
+    isWechat,
+    cutString,
+    ajax,
+    ajaxJson,
+    toInt,
+    getCookies,
+    createCookie,
+    clearCookieByName,
+    checkRegex,
+    toLogin,
+    isEmpty,
+    dateFormat,
+    sortReports,
+    GetQueryString,
+    objToArray,
+    getRandom,
 }

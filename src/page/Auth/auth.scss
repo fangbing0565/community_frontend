@@ -1,0 +1,233 @@
+@import './src/style/_variable.scss';
+
+.login-and-register {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom,#fff 0,#dce5e9 100%);
+    .login-and-register-container {
+        flex-grow: 1;
+        @media only screen and (min-width: $big-screen-min) {
+            padding-top: 20px;
+            padding-bottom: 80px;
+            justify-content: center;
+        }
+        @media only screen and (max-width: $small-screen-max) {
+            padding-top: 0;
+            padding-bottom: 20px;
+            justify-content: flex-start;
+        }
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        box-sizing: border-box;
+        .form-content {
+            z-index: 1024;
+            display: block;
+            text-align: left;
+            background: #fff;
+            box-sizing: border-box;
+            border: 1px solid $line;
+            border-radius: 2px;
+            @media only screen and (min-width: 1024px) {
+                width: 340px;
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
+            @media only screen and (min-width: 375px) and (max-width: 1023px){
+                width: 100%;
+                max-width: 400px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            @media only screen and (max-width: 374px) {
+                width: 100%;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            .default-form {
+                @media only screen and (min-width: $big-screen-min) {
+                    padding: 0 26px;
+                }
+                @media only screen and (max-width: $small-screen-max) {
+                    padding: 0 20px;
+                }
+                .title {
+                    padding-bottom: 20px;
+                    text-align: center;
+                    p {
+                        font-size: 22px;
+                        color: #000; 
+                    }
+                }
+                .errors {
+                    text-align: center;
+                    p {
+                        font-size: 14px;
+                        color: $red; 
+                        padding-bottom: 20px;
+                    }
+                }
+                .find-password-desc {
+                    text-align: left;
+                    h1 {
+                        font-size: 14px;
+                        color: $dark; 
+                    }    
+                    p {
+                        font-size: 14px;
+                        color: $dark; 
+                        margin-top: 26px;
+                        margin-bottom: 14px;
+                    }
+                    h2 {
+                        font-size: 14px;
+                        color: $orange; 
+                        margin-bottom: 18px;
+                    }
+                }
+                .form-item {
+                    margin-bottom: 12px;
+                    display: flex;
+                    align-items: center;
+                    .input {
+                        box-sizing: border-box;
+                        position: relative;
+                        height: 40px; 
+                        border-top: 1px solid $dark-line;
+                        border-bottom: 1px solid $dark-line;
+                        border-left: 1px solid $dark-line;
+                        box-sizing: border-box;
+                        border-radius: 2px 0 0 2px;
+                        -webkit-appearance: none;
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        transition: all 0.1s ease;
+                        @media only screen and (min-width: $big-screen-min) {
+                            padding: 0 12px;
+                        }
+                        @media only screen and (max-width: $small-screen-max) {
+                            padding: 0 6px;
+                        }
+                        &:focus {
+                            border-top: 1px solid $blue;
+                            border-bottom: 1px solid $blue;
+                            border-left: 1px solid $blue;
+                        }
+                        &:focus + .input-button {
+                            border-top: 1px solid $blue;
+                            border-bottom: 1px solid $blue;
+                            border-right: 1px solid $blue;
+                        }
+                    }
+                    .input-button {
+                        box-sizing: border-box;
+                        height: 40px;
+                        transition: all 0.1s ease;
+                        border-top: 1px solid $dark-line;
+                        border-bottom: 1px solid $dark-line;
+                        border-right: 1px solid $dark-line;
+                        border-radius: 0 2px 2px 0;
+                        cursor: pointer;
+                    }
+                    .show-password {
+                        display: block;
+                        flex: 0 0 34px;
+                        height: 40px;
+                        line-height: 40px;
+                        text-align: center;
+                        color: $medium;
+                        cursor: pointer;
+                        font-size: 16px;
+                        box-sizing: border-box;
+                    }
+                    .forget-password {
+                        text-align: center;
+                        width: 80px; 
+                        a {
+                            line-height: 40px;
+                            cursor: pointer;
+                            padding: 0;
+                            font-size: $font-small;
+                            color: $blue;
+                        }
+                    }
+                    .count-down-button-main {
+                        height: 40px; 
+                        width: 80px; 
+                        .count-down-button {
+                            text-align: center;
+                            color: $dark;
+                            box-sizing: border-box;
+                        }
+                    }
+                    .active {
+                        cursor: pointer;
+                        border: 1px solid $orange;
+                        P {
+                            color: $orange;
+                        }
+                    }
+                    .waiting {
+                        border: 1px solid $dark;
+                        P {
+                            color: $dark;
+                        }
+                    }
+                    .verification-img {
+                        box-sizing: border-box;
+                        padding: 4px;
+                        flex: 0 0 80px;
+                        img {
+                            filter: grayscale(100%);
+                            height: 100%;
+                            width: 100%;
+                        }
+                    }
+                }
+                .register-regulation {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 40px;
+                    p {
+                        font-size: $font-small;
+                        color: $medium;
+                        a {
+                            cursor: pointer;
+                            color: $blue;
+                        }
+                    }
+                }
+                .button-default {
+                    margin-top: 12px;
+                    width: 100%;
+                    height: 40px;
+                    background: $medium;
+                    color: #fff;
+                    font-size: 14px;
+                    border-radius: 2px;
+                    cursor: pointer;
+                }
+            }
+            .login-register-help {
+                box-sizing: border-box;
+                text-align: center;
+                padding-top: 20px;
+                p {
+                    font-size: $font-small;
+                    color: $medium;
+                    a {
+                        cursor: pointer;
+                        color: $blue;
+                    }
+                }
+            }
+        }
+    }
+}

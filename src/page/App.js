@@ -1,14 +1,14 @@
 import React from 'react';
 import * as Draft from 'draft-js';
-import {AutocompleteEditor} from '../componets/autocomplete';
-import SuggestionList from '../componets/suggestions';
+import {AutocompleteEditor} from '../components/autocomplete';
+import SuggestionList from '../components/suggestions';
 import styles from '../styles/styles'
 import {normalizeIndex, filterArray} from '../util/utils';
 import {filterPromptData} from '../util';
 import { connect } from 'react-redux'
 import * as triggers from '../util/triggers';
 import * as data from '../data/data';
-// import addSuggestion from '../componets/addsuggestion';
+// import addSuggestion from '../components/addsuggestion';
 import 'whatwg-fetch'
 import { getPrompt, getPromptSuccess } from '../actions/index'
 import './App.css'
