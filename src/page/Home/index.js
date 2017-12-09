@@ -1,10 +1,9 @@
 import * as React from 'react'
 import './index.css'
-import SearchInput from '../../components/SearchInput'
 import history from '../../history'
 
-class Home extends React.Component<any, any> {
-    constructor(props: any) {
+class Home extends React.Component {
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -13,13 +12,13 @@ class Home extends React.Component<any, any> {
         }
     }
 
-    handleChange = (event: any) => {
+    handleChange = (event) => {
         this.setState({
             search: event.target.value 
         })
     }
 
-    goToSearch(input: any) {
+    goToSearch(input) {
         const url = '/search/' + input
         history.push(url)
         this.hideMask()
@@ -52,14 +51,11 @@ class Home extends React.Component<any, any> {
                 <div className="bg bg-right" />
                 <div className="bg-content">
                     <div className="title">
-                        <h1>一站式智能金融研究搜索引擎</h1>
-                        <h2>全球首款基于人工智能进行分析师及研报评级的智能分析系统</h2>
-                    </div>
-                    <div className="search">
-                        <SearchInput searchResult={(input: any) => this.goToSearch(input)} setMask={() => this.setBackgroundMask()} hideMask={() => this.hideMask()} definePlaceholder="搜索全球超过100万份金融研究报告" />
+                        <h1>启程社区</h1>
+                        <h2>有价值的知识分享平台</h2>
                     </div>
                     <div className="bottom">
-                        投研通由EditorAI的文本智能分析技术提供支持
+                        本站由FangBing开发维护
                     </div>
                 </div>
             </div>

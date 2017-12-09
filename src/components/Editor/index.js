@@ -10,7 +10,7 @@ import * as data from '../../data/data';
 // import addSuggestion from '../components/addsuggestion';
 import 'whatwg-fetch'
 import { getPrompt, getPromptSuccess } from '../../actions/index'
-import './App.css'
+import './index.css'
 let filteredArrayTemp;
 const {Entity, Modifier, Editor, EditorState, convertToRaw, RichUtils, CodeUtils} = Draft;
 

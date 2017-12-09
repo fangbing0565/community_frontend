@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Draft from 'draft-js';
 import * as triggers from '../../util/triggers';
-import './App.css'
+import './index.css'
 const {Editor, EditorState, RichUtils} = Draft;
 export class AutocompleteEditor extends Editor {
     constructor(props) {

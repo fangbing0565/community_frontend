@@ -1,6 +1,6 @@
 import React from 'react';
 import {normalizeIndex} from '../../util/utils';
-import './App.css'
+import './index.css'
 class SuggestionList extends React.Component {
 
   render() {
