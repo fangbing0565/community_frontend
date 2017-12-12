@@ -54,7 +54,8 @@ class Header extends React.Component {
                                 hasToken ?
                                     <ul>
                                         <li><a>{email}</a></li>
-                                        <li><Link to="/article">报告订阅</Link></li>
+                                        <li><Link to="/editor">Editor</Link></li>
+                                        <li><Link to="/article">文章</Link></li>
                                         <li><a onClick={() => {this.handleLogout()}}>退出登录</a></li>
                                     </ul> :
                                     <ul>

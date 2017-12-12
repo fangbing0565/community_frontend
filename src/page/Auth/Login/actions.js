@@ -38,7 +38,7 @@ export function login(data) {
                 dispatch(loginError(res[Object.keys(res)[0]]))
             } else {
                 dispatch(isLogin(true))
-                afterLogin(res)
+                afterLogin(res.data)
             }
             dispatch(logining(false))
         })

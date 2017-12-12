@@ -1,0 +1,87 @@
+@import '../../style/_variable.scss';
+.articleList {
+  box-sizing: border-box;
+  @media only screen and (min-width: $big-screen-min) {
+    border-left: 1px solid $line;
+    min-height: calc(100vh - #{$header-height} * 2);
+    flex: 0 0 75%;
+    padding: 0 40px;
+  }
+  @media only screen and (max-width: $small-screen-max) {
+    border-top: 1px solid $line;
+    width: 100%;
+    padding: 20px 10px;
+  }
+  .article-item {
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid $line;
+    &:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+    .title {
+      font-size: 20px;
+      a {
+        color: $blue;
+      }
+      padding-bottom: 20px;
+    }
+    .subtitle {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: $font-small;
+      color: $dark;
+      .item {
+        margin-right: 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+      .detail-author {
+        margin-right: 10px;
+        a{
+          text-decoration: underline;
+          color: #8c9296;
+          &:visited {
+            color: #654cb3;
+          }
+        }
+      }
+    }
+    .abstract {
+      font-size: 14px;
+      color: $medium;
+    }
+    .state {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 20px;
+      font-size: $font-small;
+      .dropDownMenu{
+        padding: 2px 10px 0 0;
+      }
+      .item {
+        padding: 2px 10px 0 0;
+        margin-right: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        color: $medium;
+        &:hover{
+          background: $background;
+        }
+        i {
+          margin-right: 6px;
+        }
+      }
+      .none-button-border{
+        border:none;
+      }
+    }
+  }
+}

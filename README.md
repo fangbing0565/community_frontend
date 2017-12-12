@@ -110,8 +110,19 @@ req:{
 req:{
     article_id:
     comment_id:  //回复多一个comment_id
-    reply_userId
+    reply_userId 
     reply_content:
     // 后端生成时间
 }
 ```
+
+mongodb design
+
+table1: Account 
+id user pwd email register_date
+
+table2: Article
+id title content account_id add_date
+
+table3: Comment
+id article_id reply_user_id reply_content

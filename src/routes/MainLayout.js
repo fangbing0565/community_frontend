@@ -8,6 +8,9 @@ import Footer from '../components/Footer'
 import Home from '../page/Home'
 import Login from '../page/Auth/Login'
 import Register from '../page/Auth/Register'
+import Article from '../page/Article'
+import Detail from '../page/Detail'
+import Editor from '../page/Editor'
 
 class MainLayout extends React.Component {
     render() {
@@ -19,6 +22,9 @@ class MainLayout extends React.Component {
                         <Route exact={true} path="/" component={Home} />
                         <Route exact={true} path="/login" component={Login} />
                         <Route exact={true} path="/register" component={Register} />
+                        <Route token={this.props.token} exact={true} path="/editor" component={Editor} />
+                        <PrivateRoute token={this.props.token} exact={true} path="/article" component={Article} />
+                        <PrivateRoute token={this.props.token} exact={true} path="/detail" component={Detail} />
                     </Switch>
                 </div>
                 <Footer />
@@ -27,19 +33,20 @@ class MainLayout extends React.Component {
     }
 }
 
-// const PrivateRoute = ({component: Component, token, ...rest}) => {
-//     return (
-//         <Route
-//             {...rest}
-//             render={(props) => (token && token.length > 0)
-//                 ? <Component {...props} />
-//                 : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
-//         />
-//     )
-// }
+const PrivateRoute = ({component: Component, token, ...rest}) => {
+    return (
+        <Route
+            {...rest}
+            render={(props) => (token && token.length > 0)
+                ? <Component {...props} />
+                : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+        />
+    )
+}
 
 const mapStateToProps = (state) => {
     return {
+        token: state.fetchedToken,
     }
 }
 
