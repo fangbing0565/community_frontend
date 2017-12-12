@@ -34,10 +34,10 @@ class Article extends React.Component {
                         articles && articles.length > 0 &&
                         articles.map((item,index) =>
                             <div key={index} className="article-item">
-                                <Link className="title" to={`/detail/${item.id}` }  >{item.title}</Link>
+                                <Link className="title" to={`/detail/${item._id}` }  >{item.title}</Link>
                                 <div className="sub-title">
                                     <div>
-                                        作者
+                                        {item.account_name}
                                     </div>
                                     <div>
                                         {item.add_date}

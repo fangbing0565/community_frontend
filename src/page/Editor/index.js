@@ -4,13 +4,15 @@ import {AutocompleteEditor} from './autocomplete';
 import SuggestionList from './suggestions';
 import {normalizeIndex, filterArray} from '../../util/utils';
 import {filterPromptData} from '../../util/index';
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import * as triggers from '../../util/triggers';
 import * as data from '../../data/data';
 // import addSuggestion from '../components/addsuggestion';
 import 'whatwg-fetch'
-import { getPrompt, getPromptSuccess } from '../../actions/index'
+import {getPrompt, getPromptSuccess} from '../../actions/index'
+import {uploadArticle} from './actions'
 import './index.css'
+
 let filteredArrayTemp;
 const {Entity, Modifier, Editor, EditorState, convertToRaw, RichUtils, CodeUtils} = Draft;
 
@@ -18,17 +20,17 @@ let currentIndex = -1;
 let requestStr = '';
 let hasDot = false;
 let updateEditorState;
-let filterType ={
-    name: '',
+let filterType = {
+    name: '无',
     category: '',
     expense: ''
 }
 const tools = [
-    {id: 1, url:'./img/bold.svg'}, {id: 2, url:'./img/italic.svg'}, {id: 3, url:'./img/title.svg'},
-    {id: 4, url:'./img/cite.svg'}, {id: 5, url:'./img/code.svg'}, {id: 6, url:'./img/unorderedlist.svg'},
-    {id: 7, url:'./img/orderedlist.svg'}, {id: 8, url:'./img/link.svg'}, {id: 9, url:'./img/pic.svg'},
-    {id: 10, url:'./img/video.svg'}, {id: 11, url:'./img/formulae.svg'}, {id: 12, url:'./img/line.svg'},
-    {id: 13, url:'./img/removeformat.svg'},
+    {id: 1, url: './img/bold.svg'}, {id: 2, url: './img/italic.svg'}, {id: 3, url: './img/title.svg'},
+    {id: 4, url: './img/cite.svg'}, {id: 5, url: './img/code.svg'}, {id: 6, url: './img/unorderedlist.svg'},
+    {id: 7, url: './img/orderedlist.svg'}, {id: 8, url: './img/link.svg'}, {id: 9, url: './img/pic.svg'},
+    {id: 10, url: './img/video.svg'}, {id: 11, url: './img/formulae.svg'}, {id: 12, url: './img/line.svg'},
+    {id: 13, url: './img/removeformat.svg'},
 ]
 
 class AutocompleteInput extends React.Component {
@@ -48,7 +50,7 @@ class AutocompleteInput extends React.Component {
     }
 
     onChange = (editorState, state) => {
-        if(this.state.editorState) {
+        if (this.state.editorState) {
             editorState = editorState ? editorState : updateEditorState
             this.setState({editorState});
             const content = this.state.editorState.getCurrentContent();
@@ -62,14 +64,14 @@ class AutocompleteInput extends React.Component {
                     const content = this.state.editorState.getCurrentContent()
                     const selection = this.state.editorState.getSelection()
                     console.log(selection, selection.getEndKey(), selection.getEndOffset(), convertToRaw(content))
-                      this.cursorToMark(convertToRaw(content), selection,state)
+                    this.cursorToMark(convertToRaw(content), selection, state)
                 }
             )
         }
     }
 
-    myKeyBindingFn(e){
-        if(e.keyCode === 17 ){
+    myKeyBindingFn(e) {
+        if (e.keyCode === 17) {
             this.onChange(this.state.editorState, 1)
         }
     }
@@ -86,17 +88,17 @@ class AutocompleteInput extends React.Component {
                 requestStr = this.getRequestStr(i, cursor.offset)
                 // todo  弹出提示选择自动填充下一句
                 let data = {'context': requestStr}
-                if(requestStr && requestStr.length >= 60 ) {
+                if (requestStr && requestStr.length >= 60) {
                     judgeHasDot = true
                     hasDot = true
-                    currentIndex =  this.mark.indexOf(this.getRequestStr(i, cursor.offset).slice(this.getRequestStr(i, cursor.offset).length - 1, this.getRequestStr(i, cursor.offset).length))
+                    currentIndex = this.mark.indexOf(this.getRequestStr(i, cursor.offset).slice(this.getRequestStr(i, cursor.offset).length - 1, this.getRequestStr(i, cursor.offset).length))
                     state ? this.props.getPrompt(data) : ''
                 }
             }
         }
-        if(!judgeHasDot){
+        if (!judgeHasDot) {
             hasDot = false
-            let newData = {result:[]}
+            let newData = {result: []}
             this.props.fetchPrompt(newData)
         }
     }
@@ -131,17 +133,17 @@ class AutocompleteInput extends React.Component {
             tag = true
         }
         if (tag) {
-            return  currentText.slice(start, end)
+            return currentText.slice(start, end)
         } else {
             if (index === 0) {
-                return  data.blocks[index].text.slice(0, end) + strRepo
+                return data.blocks[index].text.slice(0, end) + strRepo
             }
             for (let i = index; i >= 0; i--) {
                 if (i === index && (data.blocks[i].text.slice(0, data.blocks[i].text.length - 1)).length >= 60) {
-                    return  data.blocks[i].text.slice(end - 60, end)
+                    return data.blocks[i].text.slice(end - 60, end)
                 }
                 else if (i !== index && (data.blocks[i].text.slice(0, data.blocks[i].text.length)).length + strRepo.length >= 60) {
-                    return  data.blocks[i].text.slice(0, data.blocks[i].text.length) + strRepo
+                    return data.blocks[i].text.slice(0, data.blocks[i].text.length) + strRepo
                 }
                 else {
                     strRepo = data.blocks[i].text + strRepo
@@ -149,10 +151,10 @@ class AutocompleteInput extends React.Component {
             }
         }
     }
-/* todo   ---------------发送前准备结束-----------------------  */
+    /* todo   ---------------发送前准备结束-----------------------  */
 
 
-/* todo   ---------------返回数据处理插入开始-----------------------  */
+    /* todo   ---------------返回数据处理插入开始-----------------------  */
     addSuggestion = (data) => {
         //    todo  取回数据 更新进对应位置
         const text = ''
@@ -177,9 +179,9 @@ class AutocompleteInput extends React.Component {
             );
         }
         /*----- todo 参数归零-----*/
-        let newData = {result:[]}
+        let newData = {result: []}
         this.props.fetchPrompt(newData)
-        updateEditorState =  nextEditorState
+        updateEditorState = nextEditorState
         this.onChange(updateEditorState)
     }
 
@@ -193,18 +195,18 @@ class AutocompleteInput extends React.Component {
     onInsert = (insertState) => {
         if (!filteredArrayTemp) {
             return null;
-        }else {
+        } else {
             const index = normalizeIndex(insertState.selectedIndex, filteredArrayTemp.length);
             requestStr && requestStr.length >= 60 && index >= 0 ?
-            // insertState.text = insertState.trigger[currentIndex] + filteredArrayTemp[index]
-            insertState.text =  filteredArrayTemp[index]
+                // insertState.text = insertState.trigger[currentIndex] + filteredArrayTemp[index]
+                insertState.text = filteredArrayTemp[index]
                 :
                 insertState.text = '';
-            if(filteredArrayTemp[index] === 'ctrl键提示下一句') {
+            if (filteredArrayTemp[index] === 'ctrl键提示下一句') {
                 insertState.text = '\n'
             }
             // insertState.trigger =  requestStr.slice(requestStr.length,1)
-            return  this.addSuggestion(insertState);
+            return this.addSuggestion(insertState);
         }
     };
 
@@ -229,13 +231,13 @@ class AutocompleteInput extends React.Component {
         // todo 更新数据部分
         let dataArray = []
         // if(currentIndex === -1 || !hasDot){
-        if(!hasDot){
+        if (!hasDot) {
             return []
         }
-        if(!this.props.promptData.length){
+        if (!this.props.promptData.length) {
             dataArray = type === triggers.PERSON ? data.persons : data.tags;
         }
-        else{
+        else {
             dataArray = this.props.promptData
         }
         // const filteredArray = filterArray(dataArray, text.replace(triggers.regExByType(type, text), ''));
@@ -255,56 +257,68 @@ class AutocompleteInput extends React.Component {
     changeexpenseValue = (e) => {
         filterType.expense = e.target.value
     }
+    saveWrite = () => {
+        let str = ''
+        const {content} = this.state
+        if(!content || !content.blocks){
+            return
+        }
+        for (let i = 0; i < content.blocks.length; i++) {
+            str += content.blocks[i].text
+        }
+        if(!str){
+            alert('内容能为空')
+            return
+        }
+        const data = {title: filterType.name, content: str}
+        this.props.uploadArticle(data)
+    }
 
     render() {
         return ( < div className="root">
                 <div className="editorName">EditorAI智能编辑器</div>
                 <div className="content-box">
                     <div className="content-title">
-                        用户输入
+                        文章名称
                     </div>
-                    <ul>
-                        <li>
-                            <span>
-                                产品名称
-                            </span>
-                            <input type="text" className="search-input" autoComplete="off" onChange={this.changeNameValue} />
-                        </li>
-                        <li>
-                            <span>
-                                产品种类
-                            </span>
-                            <input type="text" className="search-input" autoComplete="off"  onChange={this.changeCateGoryValue} />
-                        </li>
-                        <li>
-                            <span>
-                                加盟费用
-                            </span>
-                            <input type="text" className="search-input" autoComplete="off" onChange={this.changeexpenseValue} />
-                        </li>
-                    </ul>
+                    <div>
+                        <input type="text" className="search-input" autoComplete="off" onChange={this.changeNameValue}/>
+                    </div>
                 </div>
                 {
-                this.renderAutocomplete()
-            }
+                    this.renderAutocomplete()
+                }
 
                 <div className="editorTools">
                     {
                         tools.map((item, index) =>
                             <div className="editorTools-item" key={index}>
-                                {item.url === './img/bold.svg' ?  <img className="item-icon" src={require('./img/bold.svg')} alt=""/> : ''}
-                                {item.url === './img/italic.svg' ?  <img className="item-icon" src={require('./img/italic.svg')} alt=""/> : ''}
-                                {item.url === './img/title.svg' ?  <img className="item-icon" src={require('./img/title.svg')} alt=""/> : ''}
-                                {item.url === './img/cite.svg' ?  <img className="item-icon" src={require('./img/cite.svg')} alt=""/> : ''}
-                                {item.url === './img/code.svg' ?  <img className="item-icon" src={require('./img/code.svg')} alt=""/> : ''}
-                                {item.url === './img/unorderedlist.svg' ?  <img className="item-icon" src={require('./img/unorderedlist.svg')} alt=""/> : ''}
-                                {item.url === './img/orderedlist.svg' ?  <img className="item-icon" src={require('./img/orderedlist.svg')} alt=""/> : ''}
-                                {item.url === './img/link.svg' ?  <img className="item-icon" src={require('./img/link.svg')} alt=""/> : ''}
-                                {item.url === './img/pic.svg' ?  <img className="item-icon" src={require('./img/pic.svg')} alt=""/> : ''}
-                                {item.url === './img/video.svg' ?  <img className="item-icon" src={require('./img/video.svg')} alt=""/> : ''}
-                                {item.url === './img/formulae.svg' ?  <img className="item-icon" src={require('./img/formulae.svg')} alt=""/> : ''}
-                                {item.url === './img/line.svg' ?  <img className="item-icon" src={require('./img/line.svg')} alt=""/> : ''}
-                                {item.url === './img/removeformat.svg' ?  <img className="item-icon" src={require('./img/removeformat.svg')} alt=""/> : ''}
+                                {item.url === './img/bold.svg' ?
+                                    <img className="item-icon" src={require('./img/bold.svg')} alt=""/> : ''}
+                                {item.url === './img/italic.svg' ?
+                                    <img className="item-icon" src={require('./img/italic.svg')} alt=""/> : ''}
+                                {item.url === './img/title.svg' ?
+                                    <img className="item-icon" src={require('./img/title.svg')} alt=""/> : ''}
+                                {item.url === './img/cite.svg' ?
+                                    <img className="item-icon" src={require('./img/cite.svg')} alt=""/> : ''}
+                                {item.url === './img/code.svg' ?
+                                    <img className="item-icon" src={require('./img/code.svg')} alt=""/> : ''}
+                                {item.url === './img/unorderedlist.svg' ?
+                                    <img className="item-icon" src={require('./img/unorderedlist.svg')} alt=""/> : ''}
+                                {item.url === './img/orderedlist.svg' ?
+                                    <img className="item-icon" src={require('./img/orderedlist.svg')} alt=""/> : ''}
+                                {item.url === './img/link.svg' ?
+                                    <img className="item-icon" src={require('./img/link.svg')} alt=""/> : ''}
+                                {item.url === './img/pic.svg' ?
+                                    <img className="item-icon" src={require('./img/pic.svg')} alt=""/> : ''}
+                                {item.url === './img/video.svg' ?
+                                    <img className="item-icon" src={require('./img/video.svg')} alt=""/> : ''}
+                                {item.url === './img/formulae.svg' ?
+                                    <img className="item-icon" src={require('./img/formulae.svg')} alt=""/> : ''}
+                                {item.url === './img/line.svg' ?
+                                    <img className="item-icon" src={require('./img/line.svg')} alt=""/> : ''}
+                                {item.url === './img/removeformat.svg' ?
+                                    <img className="item-icon" src={require('./img/removeformat.svg')} alt=""/> : ''}
                             </div>
                         )
                     }
@@ -313,7 +327,7 @@ class AutocompleteInput extends React.Component {
                     < AutocompleteEditor editorState={
                         this.state.editorState
                     }
-                                         myKeyBindingFn={(e) =>this.myKeyBindingFn(e)}
+                                         myKeyBindingFn={(e) => this.myKeyBindingFn(e)}
                                          onChange={
                                              this.onChange
                                          }
@@ -324,6 +338,9 @@ class AutocompleteInput extends React.Component {
                                              this.onInsert
                                          }
                     />
+                </div>
+                <div>
+                    <button onClick={this.saveWrite} className="editor-save">发表</button>
                 </div>
             </div>
         );
@@ -343,6 +360,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getPrompt: (data) => dispatch(getPrompt(data)),
         fetchPrompt: (data) => dispatch(getPromptSuccess(data)),
+        uploadArticle: (data) => dispatch(uploadArticle(data)),
     }
 }
 

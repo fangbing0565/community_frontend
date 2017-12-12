@@ -85,3 +85,30 @@
     }
   }
 }
+
+.add-comment{
+  margin:10px;
+  button{
+    background: #68838B;
+    color: white;
+    padding: 5px 10px;
+  }
+}
+.edit-box{
+  position: relative;
+  .edit-add {
+    height: 30px;
+    padding: 10px 10% 10px 10px;
+    background-color: #68838B;
+  }
+  .save-add{
+    color: #68838B;
+    background-color: white;
+    padding: 4px 8px;
+    font-size:20px;
+    position: absolute;
+    right: 10px;
+    top:10px;
+    cursor: pointer;
+  }
+}

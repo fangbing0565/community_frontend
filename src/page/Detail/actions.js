@@ -34,3 +34,57 @@ export function getDetail(data) {
         })
     }
 }
+
+export function uploadCommentSuccess(data) {
+    return {
+        type: 'UPLOAD_COMMENT_SUCCESS',
+        data
+    }
+}
+
+export function uploadCommentError(data) {
+    return {
+        type: 'UPLOAD_COMMENT_ERROR',
+        data
+    }
+}
+
+export function uploadComment(data) {
+    return (dispatch) => {
+        const url = '/api/comment_upload'
+        ajax(url, data, 'POST').then(res => {
+            if (res.hasError) {
+                dispatch(uploadCommentError(res[Object.keys(res)[0]]))
+            } else {
+                dispatch(uploadCommentSuccess(res))
+            }
+        })
+    }
+}
+
+export function deleteCommentSuccess(data) {
+    return {
+        type: 'UPLOAD_COMMENT_SUCCESS',
+        data
+    }
+}
+
+export function deleteCommentError(data) {
+    return {
+        type: 'UPLOAD_COMMENT_ERROR',
+        data
+    }
+}
+
+export function deleteComment(data) {
+    return (dispatch) => {
+        const url = '/api/comment_upload'
+        ajax(url, data, 'POST').then(res => {
+            if (res.hasError) {
+                dispatch(deleteCommentError(res[Object.keys(res)[0]]))
+            } else {
+                dispatch(deleteCommentSuccess(res))
+            }
+        })
+    }
+}

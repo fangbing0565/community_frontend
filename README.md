@@ -122,7 +122,7 @@ table1: Account
 user_id user pwd email register_date
 
 table2: Article
-article_id title content account_id add_date
+title content account_id add_date
 
 table3: Comment
-comment_id article_id comment_user_id reply_content comment_date  // comment_id 默认 -1 表示评论
+comment_id article_id comment_user_id reply_content comment_date  // 只评论，不回复
