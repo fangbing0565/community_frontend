@@ -1,15 +1,15 @@
-export function articles(state , action) {
+export function detail(state , action) {
     if(!state){
         state = {fetching: false, entities: {}, error: ''}
     }
     switch (action.type) {
-        case 'FETCHING_ARTICLES':
+        case 'FETCHING_DETAIL':
             return {...state, fetching: action.data}
 
-        case 'FETCH_ARTICLES_SUCCESS':
-            return {...state, entities: action.data}
+        case 'FETCH_DETAIL_SUCCESS':
+            return {...state, entities: action.data.data}
 
-        case 'FETCH_ARTICLES_ERROR':
+        case 'FETCH_DETAIL_ERROR':
             return {...state, error: action.data}
 
         default:

@@ -24,7 +24,7 @@ class MainLayout extends React.Component {
                         <Route exact={true} path="/register" component={Register} />
                         <Route token={this.props.token} exact={true} path="/editor" component={Editor} />
                         <PrivateRoute token={this.props.token} exact={true} path="/article" component={Article} />
-                        <PrivateRoute token={this.props.token} exact={true} path="/detail" component={Detail} />
+                        <PrivateRoute token={this.props.token} exact={true} path="/detail/:id" component={Detail} />
                     </Switch>
                 </div>
                 <Footer />

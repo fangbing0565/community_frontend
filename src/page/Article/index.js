@@ -25,22 +25,22 @@ class Article extends React.Component {
     }
 
     render() {
-        const articles = this.props.articles
+        const articles = this.props.articles.entities
         return (
             <div className="article grow">
                 <Helmet title="文章列表 - 启程"/>
-                <div className="article-container">
+                <div className="articleList">
                     {
                         articles && articles.length > 0 &&
                         articles.map((item,index) =>
-                            <div key={index} >
-                                <div className="title">{item.title}</div>
+                            <div key={index} className="article-item">
+                                <Link className="title" to={`/detail/${item.id}` }  >{item.title}</Link>
                                 <div className="sub-title">
                                     <div>
                                         作者
                                     </div>
                                     <div>
-                                        事件
+                                        {item.add_date}
                                     </div>
                                 </div>
                                 <p className="content">{item.content}</p>

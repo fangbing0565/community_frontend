@@ -7,7 +7,7 @@ export function articles(state , action) {
             return {...state, fetching: action.data}
 
         case 'FETCH_ARTICLES_SUCCESS':
-            return {...state, entities: action.data}
+            return {...state, entities: action.data.data}
 
         case 'FETCH_ARTICLES_ERROR':
             return {...state, error: action.data}

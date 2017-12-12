@@ -1,36 +1,36 @@
 import {ajax} from '../../util'
-export function fetchedArticles(data) {
+export function fetchedDetail(data) {
     return {
-        type: 'FETCH_ARTICLES_SUCCESS',
+        type: 'FETCH_DETAIL_SUCCESS',
         data
     }
 }
 
-export function fetchingArticles(data) {
+export function fetchingDetail(data) {
     return {
-        type: 'FETCHING_ARTICLES',
+        type: 'FETCHING_DETAIL',
         data
     }
 }
 
-export function fetchArticlesError(data) {
+export function fetchDetailError(data) {
     return {
-        type: 'FETCH_ARTICLES_ERROR',
+        type: 'FETCH_DETAIL_ERROR',
         data
     }
 }
 
-export function getArticle(subscribes, data) {
+export function getDetail(data) {
     return (dispatch) => {
-        dispatch(fetchingArticles(true))
-        const url = '/api/article/' + (data.page ? data.page : 1) + '/' +(data.limit ? data.limit : 10)
+        dispatch(fetchingDetail(true))
+        const url = '/api/detail/' + data
         ajax(url, {}, 'GET').then(res => {
             if (res.hasError) {
-                dispatch(fetchArticlesError(res[Object.keys(res)[0]]))
+                dispatch(fetchDetailError(res[Object.keys(res)[0]]))
             } else {
-                dispatch(fetchedArticles(res))
+                dispatch(fetchedDetail(res))
             }
-            dispatch(fetchingArticles(false))
+            dispatch(fetchingDetail(false))
         })
     }
 }

@@ -119,10 +119,10 @@ req:{
 mongodb design
 
 table1: Account 
-id user pwd email register_date
+user_id user pwd email register_date
 
 table2: Article
-id title content account_id add_date
+article_id title content account_id add_date
 
 table3: Comment
-id article_id reply_user_id reply_content
+comment_id article_id comment_user_id reply_content comment_date  // comment_id 默认 -1 表示评论

@@ -23,7 +23,7 @@ export function fetchArticlesError(data) {
 export function getArticle(data) {
     return (dispatch) => {
         dispatch(fetchingArticles(true))
-        const url = '/api/article/' + (data.page ? data.page : 1) + '/' +(data.limit ? data.limit : 10)
+        const url = 'api/article/'+ data.page + '/' + data.limit
         ajax(url, {}, 'GET').then(res => {
             if (res.hasError) {
                 dispatch(fetchArticlesError(res[Object.keys(res)[0]]))
