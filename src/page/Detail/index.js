@@ -2,7 +2,7 @@ import * as React from 'react'
 import {connect} from 'react-redux'
 import Helmet from 'react-helmet'
 import {Link} from 'react-router-dom'
-import {Editor, EditorState} from 'draft-js';
+import {Editor, EditorState, convertToRaw} from 'draft-js';
 import {getArticle} from './actions'
 import {checkRegex} from '../../util'
 import {EMAIL_REGEX} from '../../config'
@@ -20,6 +20,8 @@ class Article extends React.Component {
         this.state = {
             email: '',
             password: '',
+            content: '',
+            selection: '',
             editorState: EditorState.createEmpty()
         };
     }
@@ -27,9 +29,9 @@ class Article extends React.Component {
     componentDidMount() {
         this.props.getDetail(this.props.match.params.id)
     }
+
     onChange = (editorState) => {
         if (this.state.editorState) {
-            editorState = editorState ? editorState : updateEditorState
             this.setState({editorState});
             const content = this.state.editorState.getCurrentContent();
             const selection = this.state.editorState.getSelection();
@@ -41,18 +43,27 @@ class Article extends React.Component {
             )
         }
     }
+
     openEdit() {
 
     }
-    uploadComment(){
-        const detail = this.props.detail.entities
+
+    uploadComment = () => {
         const {content} = this.state
+        let str = ''
+        if(!content || !content.blocks){
+            return
+        }
+        for (let i = 0; i < content.blocks.length; i++) {
+            str += content.blocks[i].text
+        }
         const data = {
-            reply_content: content,
-            article_id: detail._id,
+            reply_content: str,
+            article_id: this.props.detail.entities._id,
             comment_user_id: '',  //本地获取
         }
-        this.props.uploadComment(data)
+        console.log(data)
+        // this.props.uploadComment(data)
     }
 
     render() {
@@ -77,7 +88,7 @@ class Article extends React.Component {
                         </div>
                         <div className="comment-list">
                             {
-                                detail.comment && detail.comment.map((item,index) =>
+                                detail.comment && detail.comment.map((item, index) =>
                                     <div key={index}>
                                         {'1'}
                                         {

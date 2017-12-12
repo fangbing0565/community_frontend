@@ -23,7 +23,7 @@ export function fetchDetailError(data) {
 export function getDetail(data) {
     return (dispatch) => {
         dispatch(fetchingDetail(true))
-        const url = '/api/detail/' + data
+        const url = '/api/detail?' + 'id=' + data
         ajax(url, {}, 'GET').then(res => {
             if (res.hasError) {
                 dispatch(fetchDetailError(res[Object.keys(res)[0]]))
