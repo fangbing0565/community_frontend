@@ -70,12 +70,6 @@ class Login extends React.Component {
         })
     }
 
-    componentWillReceiveProps() {
-        if (this.props.QRCode.entities.url !== null) {
-           // window.open(this.props.QRCode.entities.url)
-        }
-    }
-
     render () {
         // if (this.props.QRCode.entities.url) {
         //     window.open(this.props.QRCode.entities.url)

@@ -276,7 +276,7 @@ class AutocompleteInput extends React.Component {
 
     render() {
         return ( < div className="root">
-                <div className="editorName">EditorAI智能编辑器</div>
+                <div className="editorName">文章编辑</div>
                 <div className="content-box">
                     <div className="content-title">
                         文章名称
