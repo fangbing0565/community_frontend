@@ -20,16 +20,16 @@ function json2Form(json) {
 // 监控
 function monitor(xhr, type) {
   // 2000 系统错误，看各自的系统实际设定
-  const monitorCodes = [2000]
+  // const monitorCodes = [2000]
   let res = xhr.data
   let config = xhr.config
-  if (window.location.href.indexOf('.com') === -1) {
-    // monitor = function monitor () {}
-    return
-  }
-  if (typeof res === 'object' && res.codeNum && monitorCodes.indexOf(res.codeNum) === -1) {
-    return
-  }
+  // if (window.location.href.indexOf('.com') === -1) {
+  //   // monitor = function monitor () {}
+  //   return
+  // }
+  // if (typeof res === 'object' && res.codeNum && monitorCodes.indexOf(res.codeNum) === -1) {
+  //   return
+  // }
   feMonitorCenter('apiMonitor', {
     url: config.url,
     param: config.requestMethod === 'get' ? config.params : config.data,
@@ -84,9 +84,9 @@ async function ajax(url, payload, method) {
 
     try {
         const response = await fetch(url, init)
-        if (typeof response.data === 'string') {
+        // if (typeof response.data === 'string') {
           monitor(response, 4)
-        }
+        // }
         if (
             response.status === 500 ||
             response.status === 404
