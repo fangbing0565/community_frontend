@@ -1,4 +1,6 @@
 import history from '../history'
+import feMonitorCenter from 'fe-api-monitor-center'
+
 const UA = window.navigator.userAgent
 
 function json2Form(json) {
@@ -13,6 +15,37 @@ function json2Form(json) {
         }
     }
     return str.join('&')
+}
+
+// 监控
+function monitor(xhr, type) {
+  // 2000 系统错误，看各自的系统实际设定
+  const monitorCodes = [2000]
+  let res = xhr.data
+  let config = xhr.config
+  if (window.location.href.indexOf('.com') === -1) {
+    // monitor = function monitor () {}
+    return
+  }
+  if (typeof res === 'object' && res.codeNum && monitorCodes.indexOf(res.codeNum) === -1) {
+    return
+  }
+  feMonitorCenter('apiMonitor', {
+    url: config.url,
+    param: config.requestMethod === 'get' ? config.params : config.data,
+    response: JSON.stringify(res),
+    desc: xhr.message || '接口响应异常',
+    app: '官网控制台项目',
+    method: config.requestMethod || 'post',
+    group: 4,
+    account: localStorage.getItem('community_account') || '', // 当前账户名
+    type: type,
+    href: window.location.href
+  }, {
+    frequency: 1, // 接收频率
+    noSendMail: false, // 不发送邮件
+    noInsertDb: false // 不插入数据库
+  })
 }
 
 async function ajax(url, payload, method) {
@@ -51,6 +84,9 @@ async function ajax(url, payload, method) {
 
     try {
         const response = await fetch(url, init)
+        if (typeof response.data === 'string') {
+          monitor(response, 4)
+        }
         if (
             response.status === 500 ||
             response.status === 404

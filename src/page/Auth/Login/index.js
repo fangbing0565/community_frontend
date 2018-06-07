@@ -14,7 +14,7 @@ class Login extends React.Component {
         super(props)
 
         this.state = {
-            email: '',
+            email: localStorage.getItem('community_account') || '',
             password: '',
         }
 
@@ -29,12 +29,12 @@ class Login extends React.Component {
         switch (event.target.name) {
             case 'email':
                 this.setState({
-                    email: event.target.value 
+                    email: event.target.value
                 })
                 break
             case 'password':
                 this.setState({
-                    password: event.target.value 
+                    password: event.target.value
                 })
                 break
             default:
@@ -60,9 +60,9 @@ class Login extends React.Component {
         if (!checkRegex(EMAIL_REGEX, this.state.email)) {
 
             this.props.updateLoginError('邮箱格式不正确')
-            return 
+            return
         }
-
+        localStorage.setItem('community_account',this.state.email)
         this.props.login({
             password: this.state.password,
             email: this.state.email,
@@ -89,11 +89,11 @@ class Login extends React.Component {
                             <div className="form-item">
                                 <input
                                     className="input"
-                                    type="text" 
-                                    id="email" 
+                                    type="text"
+                                    id="email"
                                     name="email"
                                     ref={input => this.email = input}
-                                    placeholder="邮箱" 
+                                    placeholder="邮箱"
                                     autoComplete="off"
                                     value={this.state.email}
                                     onChange={this.handleChange}
@@ -101,13 +101,13 @@ class Login extends React.Component {
                                 <div className="input-button" />
                             </div>
                             <div className="form-item">
-                                <input 
+                                <input
                                     className="input"
-                                    type="password" 
-                                    id="password" 
+                                    type="password"
+                                    id="password"
                                     name="password"
                                     ref={input => this.password = input}
-                                    placeholder="密码" 
+                                    placeholder="密码"
                                     autoComplete="off"
                                     value={this.state.password}
                                     onChange={this.handleChange}

@@ -6,6 +6,7 @@
     "antd": "^3.0.0",
     "draft-js": "^0.7.0",
     "egg-cors": "^2.0.0",
+    "fe-api-monitor-center": "^1.2.0",
     "history": "^4.7.2",
     "moment": "^2.19.3",
     "react": "^16.2.0",
@@ -26,6 +27,7 @@
     "styled-components": "^1.4.4"
   },
   "scripts": {
+    "online": "react-scripts start watch-css start-js",
     "start": "react-scripts start watch-css start-js",
     "build": "npm run build-css && react-scripts build ",
     "test": "react-scripts test --env=jsdom",
